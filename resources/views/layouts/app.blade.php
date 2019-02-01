@@ -42,7 +42,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="{{route('users.index')}}">All Users</a>
-                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="{{route('users.create')}}">Create User</a>
                             <a class="dropdown-item" href="#">Something else here</a>
                         </div>
                         </li>
@@ -105,7 +105,7 @@
         </nav>
 
         <main class="py-4">
-            <div class="container text-center">
+            <div class="container">
                 @yield('content')
             </div>
         </main>
