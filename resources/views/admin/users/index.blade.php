@@ -6,6 +6,7 @@
     <thead>
         <tr>
         <th scope="col">ID</th>
+        <th scope="col">Photo</th>
         <th scope="col">Name</th>
         <th scope="col">Email</th>
         <th scope="col">Role</th>
@@ -19,6 +20,7 @@
             <tbody>
                 <tr>
                     <th scope="row">{{$user->id}}</th>
+                    <td><img height="50" src="/images/{{$user->photo ? $user->photo->file : 'No Photo'}}"></td>
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
                     <td>{{$user->role->name}}</td>

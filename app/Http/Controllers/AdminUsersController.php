@@ -53,6 +53,9 @@ class AdminUsersController extends Controller
             $photo = Photo::create(['file' => $name]);
             // $input['photo_id'] = $photo->id;
             $user->photo_id = $photo->id;
+        }else{
+            $user->photo_id = 1;
+            
         }
         $user->name = $request->name;
         $user->email = $request->email;
