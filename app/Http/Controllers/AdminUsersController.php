@@ -6,6 +6,7 @@ use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Role;
+use App\Photo;
 
 
 class AdminUsersController extends Controller
@@ -45,12 +46,20 @@ class AdminUsersController extends Controller
         // return $request->all();
         // User::create($request->all());
         $user = new User();
+        $input = $request->all();
+        if($file = $request->file('photo_id')){
+            $name = time() . $file->getClientOriginalName();
+            $file->move('images', $name);
+            $photo = Photo::create(['file' => $name]);
+            // $input['photo_id'] = $photo->id;
+            $user->photo_id = $photo->id;
+        }
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->role_id = $request->role_id;
         $user->is_active = $request->is_active;
-        $user->photo_id = $request->file;
+        // $user->photo_id = $request->photo_id;
         $user->save();
         return redirect()->route('users.index');
     }

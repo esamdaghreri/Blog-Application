@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <h1>Users</h1>
+    @if(count($users) > 0)
 <table class="table">
     <thead>
         <tr>
@@ -29,4 +30,7 @@
         @endforeach
     @endif
     </table>
+    @else
+        <h1>There is not users available</h1>
+    @endif
 @endsection
