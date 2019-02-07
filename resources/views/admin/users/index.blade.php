@@ -19,8 +19,8 @@
         @foreach($users as $user)
             <tbody>
                 <tr>
-                    <th scope="row">{{$user->id}}</th>
-                    <td><img height="50" src="/images/{{$user->photo ? $user->photo->file : 'No Photo'}}"></td>
+                    <th scope="row"><a href="{{route('users.edit', $user->id)}}">{{$user->id}}</a></th>
+                    <td><img height="50" src="/images/{{$user->photo->file}}"></td>
                     <td>{{$user->name}}</td>
                     <td>{{$user->email}}</td>
                     <td>{{$user->role->name}}</td>

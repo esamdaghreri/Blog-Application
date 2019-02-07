@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\UpdateRequest;
 use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Role;
@@ -86,7 +87,9 @@ class AdminUsersController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.users.edit');
+        $user = User::find($id);
+        $roles = Role::all();
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -96,9 +99,27 @@ class AdminUsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
-        //
+        $user = User::find($id);
+        $input = $request->all();
+        if($file = $request->file('photo_id')){
+            $name = time() . $file->getClientOriginalName();
+            $file->move('images', $name);
+            $photo = Photo::create(['file' => $name]);
+            // $input['photo_id'] = $photo->id;
+            $user->photo_id = $photo->id;
+        }
+        $user->name = $request->name;
+        $user->email = $request->email;
+        if($request->password != ''){
+            $user->password = Hash::make($request->password);
+        }
+        $user->role_id = $request->role_id;
+        $user->is_active = $request->is_active;
+        // $user->photo_id = $request->photo_id;
+        $user->save();
+        return redirect()->route('users.index');
     }
 
     /**
