@@ -65,7 +65,7 @@ class AdminUsersController extends Controller
         $user->is_active = $request->is_active;
         // $user->photo_id = $request->photo_id;
         $user->save();
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('success', 'User Created.');
     }
 
     /**
@@ -119,7 +119,7 @@ class AdminUsersController extends Controller
         $user->is_active = $request->is_active;
         // $user->photo_id = $request->photo_id;
         $user->save();
-        return redirect()->route('users.index');
+        return redirect()->route('users.index')->with('success', 'User Edited.');
     }
 
     /**
@@ -130,6 +130,12 @@ class AdminUsersController extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
+        $user = User::find($id);
+        $user->photo->file;
+        $user->delete();
+        if($user->photo->file != 'default.jpg'){
+            unlink(public_path() . '/images/' . $user->photo->file);
+        }
+        return redirect()->route('users.index')->with('success', 'User Dleted.');
+    }   
 }

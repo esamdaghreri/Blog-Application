@@ -106,7 +106,7 @@
 
         <main class="py-4">
             <div class="container">
-                @include('partials.errors')
+                @include('errors.message')
                 @yield('content')
             </div>
         </main>

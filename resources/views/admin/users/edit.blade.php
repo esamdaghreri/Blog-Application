@@ -48,7 +48,12 @@
                     <label for="name">Password</label>
                     <input type="password" id="password" name="password" placeholder="Password" class="form-control">
                 </div>
-            <input type="submit"  name="submit" placeholder="Create User" class="btn btn-primary">
+            <input type="submit"  name="submit" value="Update User" class="btn btn-primary float-left">
+        </form>
+        <form action="{{route('users.destroy', $user->id)}}" method="POST">
+            @csrf
+            <input name="_method" type="hidden" value="DELETE">
+            <input type="submit"  name="submit" value="Delete User" class="btn btn-danger float-right">
         </form>
     </div>
 @endsection
