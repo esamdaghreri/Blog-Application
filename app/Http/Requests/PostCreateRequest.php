@@ -26,8 +26,8 @@ class PostCreateRequest extends FormRequest
         return [
             'title'         => 'required',
             'body'          => 'required',
-            // 'category_id'   => 'required',
-            'photo_id'      => 'required'
+            'category'   => 'required',
+            // 'photo_id'      => 'required'
         ];
     }
 }

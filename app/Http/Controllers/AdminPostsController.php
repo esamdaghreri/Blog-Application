@@ -43,16 +43,27 @@ class AdminPostsController extends Controller
      */
     public function store(PostCreateRequest $request)
     {
-        $input = $request->all();
-        $user = Auth::user();
+
+        $user_id = Auth::id();
+        $post = new Post();
         if($file = $request->file('photo_id')){
             $name = time() . $file->getClientOriginalName();
             $file->move('images', $name);
             $photo = Photo::create(['file' => $name]);
-            $input['photo_id'] = $photo->id;          
+            $post->photo_id = $photo->id;          
+        }
+        else
+        {
+            $post->photo_id = 1;
         }
 
-        $user->posts()->create($input);
+        // $user->posts()->create($input);
+        $post->user_id = $user_id;
+        $post->title = $request->input('title');
+        $post->body = $request->input('body');
+        $post->save();
+        $post->categories()->attach($request->input('category') === null ? [] : $request->input('category'));
+        
         return redirect()->route('posts.index');
     }
 

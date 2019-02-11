@@ -13,5 +13,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RoleTable::class);
         $this->call(DefaultPhoto::class);
+        $this->call(Categories::class);
     }
 }

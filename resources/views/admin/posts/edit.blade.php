@@ -2,11 +2,11 @@
 @section('content')
     <h1>Edit Post</h1>
     <form action="{{route('posts.update', $post->id)}}" method = "POST" enctype="multipart/form-data">
-        <input type="hidden" value="PUT" name="_method">
         @csrf
+        <input type="hidden" name="_method" value="PUT">
         <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" id="title" name="title" placeholder="Title" class="form-control" value="{{$post->title}}">
+            <input value="{{$post->title}}" type="text" id="title" name="title" placeholder="Title" class="form-control">
         </div>
         <div class="form-group">
             <label for="name">Description</label>
@@ -16,7 +16,7 @@
             <label for="name">Categories</label>
             <div class="form-check">
                 @foreach ($categories as $category)
-                    <input {{$post->category_id == $category->id ? "selected" : null}} class="form-check-input" type="checkbox" name="category_id" id="category" value="{{$category->id}}">
+                    <input {{$post->categories->contains($category->id) ? 'checked' : ''}} class="form-check-input" type="checkbox" name="category[]" id="category" value="{{$category->id}}">
                     <label class="form-check-label" for="category">
                         {{$category->name}} 
                     </label>

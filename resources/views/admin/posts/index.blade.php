@@ -8,7 +8,7 @@
         <th scope="col">ID</th>
         <th scope="col">Photo</th>
         <th scope="col">Owner</th>
-        <th scope="col">Category ID</th>
+        <th scope="col">Categories</th>
         <th scope="col">Title</th>
         <th scope="col">Body</th>
         <th scope="col">Created_at</th>
@@ -22,7 +22,15 @@
                     <th scope="row"><a href="{{route('posts.edit', $post->id)}}">{{$post->id}}</a></th>
                     <td><img height="50" src="/images/{{$post->photo->file}}"></td>
                     <td>{{$post->user->name}}</td>
-                    <td>{{$post->category->name}}</td>
+                    @if(count($post->categories) > 0)
+                        <td>
+                            @foreach($post->categories as $category)
+                                -{{$category->name}}-
+                            @endforeach
+                        </td>
+                    @else
+                        <td>Uncategorized</td>
+                    @endif
                     <td>{{$post->title}}</td>
                     <td>{{$post->body}}</td>
                     <td>{{$post->created_at->diffForHumans()}}</td>

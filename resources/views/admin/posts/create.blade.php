@@ -15,7 +15,7 @@
             <label for="name">Categories</label>
             <div class="form-check">
                 @foreach ($categories as $category)
-                    <input class="form-check-input" type="checkbox" name="category_id" id="category" value="{{$category->id}}">
+                    <input class="form-check-input" type="checkbox" name="category[]" id="category" value="{{$category->id}}">
                     <label class="form-check-label" for="category">
                         {{$category->name}} 
                     </label>
