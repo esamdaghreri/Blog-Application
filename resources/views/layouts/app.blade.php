@@ -51,8 +51,8 @@
                             Posts
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="{{route('posts.index')}}">All Post</a>
+                            <a class="dropdown-item" href="{{route('posts.create')}}">Create Post</a>
                             <a class="dropdown-item" href="#">Something else here</a>
                         </div>
                         </li>
@@ -110,6 +110,10 @@
                 @yield('content')
             </div>
         </main>
+        <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+        <script>
+            CKEDITOR.replace( 'article-ckeditor' );
+        </script>
     </div>
 </body>
 </html>
