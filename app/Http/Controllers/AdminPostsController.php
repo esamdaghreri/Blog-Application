@@ -141,6 +141,6 @@ class AdminPostsController extends Controller
         }
         $post->categories()->detach();
         $post->delete();
-        return redirect()->route('posts.index')->with('success', 'Post Dleted.');
+        return redirect()->route('posts.index')->with('success', 'Post Deleted.');
     }
 }
