@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\PostCreateRequest;
+use App\Http\Requests\PostUpdateRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Post;
 use App\Role;
@@ -64,7 +65,7 @@ class AdminPostsController extends Controller
         $post->save();
         $post->categories()->attach($request->input('category') === null ? [] : $request->input('category'));
         
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.index')->with('success', 'Post Created.');
     }
 
     /**
@@ -86,7 +87,7 @@ class AdminPostsController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         $categories = Category::all();
         // return $post;
         return view('admin.posts.edit', compact(['post', 'categories']));        
@@ -99,9 +100,30 @@ class AdminPostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostUpdateRequest $request, $id)
     {
-        return "It's work yeeaah";
+        // $user_id = Auth::id();
+        // $post = Auth::user()->posts()->whereId($id)->first();
+        $post = Post::find($id);
+        if($file = $request->file('photo_id')){
+            if($post->photo->file != 'default.jpg'){
+                unlink(public_path() . '/images/' . $post->photo->file);
+            }
+            $name = time() . $file->getClientOriginalName();
+            $file->move('images', $name);
+            $photo = Photo::create(['file' => $name]);
+            $post->photo_id = $photo->id;   
+            
+        }
+
+        // $user->posts()->create($input);
+        // $post->user_id = $user_id;
+        $post->title = $request->input('title');
+        $post->body = $request->input('body');
+        $post->save();
+        $post->categories()->sync($request->input('category') === null ? [] : $request->input('category'));
+        
+        return redirect()->route('posts.index')->with('success', 'Post Updated.');
     }
 
     /**
@@ -112,6 +134,13 @@ class AdminPostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        if($post->photo->file != 'default.jpg'){
+            unlink(public_path() . '/images/' . $post->photo->file);
+            $post->photo->delete();
+        }
+        $post->categories()->detach();
+        $post->delete();
+        return redirect()->route('posts.index')->with('success', 'Post Dleted.');
     }
 }

@@ -31,8 +31,8 @@
                     @else
                         <td>Uncategorized</td>
                     @endif
-                    <td>{{$post->title}}</td>
-                    <td>{{$post->body}}</td>
+                    <td>{{str_limit($post->title, 12)}}</td>
+                    <td>{{str_limit($post->body, 12)}}</td>
                     <td>{{$post->created_at->diffForHumans()}}</td>
                     <td>{{$post->updated_at->diffForHumans()}}</td>
                 </tr>

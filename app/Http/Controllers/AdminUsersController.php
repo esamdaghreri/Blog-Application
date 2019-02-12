@@ -131,11 +131,11 @@ class AdminUsersController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-        $user->photo->file;
-        $user->delete();
         if($user->photo->file != 'default.jpg'){
             unlink(public_path() . '/images/' . $user->photo->file);
+            $user->photo->delete();
         }
+        $user->delete();
         return redirect()->route('users.index')->with('success', 'User Dleted.');
     }   
 }
