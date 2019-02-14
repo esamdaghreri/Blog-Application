@@ -15,9 +15,10 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @yield('style')
+
 </head>
 <body>
     <div id="app">
@@ -43,7 +44,6 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="{{route('users.index')}}">All Users</a>
                             <a class="dropdown-item" href="{{route('users.create')}}">Create User</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
                         </div>
                         </li>
                         <li class="nav-item dropdown">
@@ -53,7 +53,6 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="{{route('posts.index')}}">All Post</a>
                             <a class="dropdown-item" href="{{route('posts.create')}}">Create Post</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
                         </div>
                         </li>
                         <li class="nav-item dropdown">
@@ -63,7 +62,15 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="{{route('categories.index')}}">All Categories</a>
                             <a class="dropdown-item" href="{{route('categories.create')}}">Create Categories</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Media
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{{route('media.index')}}">All Medias</a>
+                            <a class="dropdown-item" href="{{route('media.create')}}">Upload Media    </a>
                         </div>
                         </li>
                     </ul>
@@ -110,10 +117,7 @@
                 @yield('content')
             </div>
         </main>
-        <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
-        <script>
-            CKEDITOR.replace( 'article-ckeditor' );
-        </script>
     </div>
+    @yield('script')
 </body>
 </html>
