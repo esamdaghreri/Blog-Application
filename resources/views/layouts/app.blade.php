@@ -53,6 +53,7 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="{{route('posts.index')}}">All Post</a>
                             <a class="dropdown-item" href="{{route('posts.create')}}">Create Post</a>
+                            <a class="dropdown-item" href="{{route('comments.index')}}">All Comments</a>
                         </div>
                         </li>
                         <li class="nav-item dropdown">
