@@ -3,6 +3,13 @@
  * Copyright 2013-2019 Start Bootstrap
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-blog-post/blob/master/LICENSE)
  */
-body {
-  padding-top: 56px;
+
+
+
+.comment-reply-hidden {
+  display: none;
+}
+
+.comment-reply-display {
+  display: inline;
 }

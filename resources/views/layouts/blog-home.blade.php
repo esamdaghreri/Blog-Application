@@ -213,9 +213,10 @@
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+
 
 </body>
 

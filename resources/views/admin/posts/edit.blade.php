@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 @section('content')
     
     <h1>Edit Post</h1>
     <div class="text-center">
-            <img width="100%"src="/images/{{$post->photo->file}}">
+            <img width="100%" src="{{ isset($post->photo->file) ?  "/images/".$post->photo->file   : "https://via.placeholder.com/750x200" }}">
     </div>
     <div>
         <form action="{{route('posts.update', $post->id)}}" method = "POST" enctype="multipart/form-data">
@@ -15,7 +15,7 @@
             </div>
             <div class="form-group">
                 <label for="name">Description</label>
-                <textarea name="body" cols="70" rows="5" class="form-control" placeholder="Description">{{$post->body}}</textarea>
+                <textarea id="" name="body" cols="70" rows="5" class="form-control ckeditor" placeholder="Description">{!! $post->body !!}</textarea>
             </div>
             <div class="form-group">
                 <label for="name">Categories</label>
@@ -48,3 +48,6 @@
         </form>
     </div>
 @endsection
+
+
+@include('partials.ckeditor')

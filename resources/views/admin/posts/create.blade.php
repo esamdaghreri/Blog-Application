@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 @section('content')
     <h1>Create Post</h1>
     <form action="{{route('posts.store')}}" method = "POST" enctype="multipart/form-data">
@@ -9,7 +9,7 @@
         </div>
         <div class="form-group">
             <label for="name">Description</label>
-            <textarea name="body" cols="70" rows="5" class="form-control" placeholder="Description"></textarea>
+            <textarea class="ckeditor" name="body" cols="70" rows="5" class="form-control" placeholder="Description"></textarea>
         </div>
         <div class="form-group">
             <label for="name">Categories</label>
@@ -34,4 +34,8 @@
         </div>
         <input type="submit" name="submit" value="Create Post" class="btn btn-primary">
     </form>
+@endsection
+
+@section('scripts')
+    @include('partials.ckeditor') 
 @endsection

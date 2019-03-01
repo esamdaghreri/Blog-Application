@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 @section('content')
     <h1>Create Users</h1>
     <form action="{{route('users.store')}}" method = "POST" enctype="multipart/form-data">

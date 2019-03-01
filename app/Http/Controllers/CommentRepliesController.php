@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\CommentReply;
+use App\Comment;
+use App\Http\Requests\CommentAndReplyRequest;
+use App\Http\Requests\CommentApproveRequest;
 
 class CommentRepliesController extends Controller
 {
@@ -37,6 +42,24 @@ class CommentRepliesController extends Controller
         //
     }
 
+    public function createReply(CommentAndReplyRequest $request){
+        $user = Auth::user();
+        // return $user->photo->file;
+
+        $data = [
+            'comment_id' => $request->comment_id,
+            'author' => $user->name,
+            'email' => $user->email,
+            'photo' => $user->photo->file,
+            'body' => $request->body
+        ];
+
+        CommentReply::create($data);
+
+        return redirect()->back()->with('success', 'Your reply has been submitted and is waiting moderation.');
+
+    }
+
     /**
      * Display the specified resource.
      *
@@ -45,7 +68,8 @@ class CommentRepliesController extends Controller
      */
     public function show($id)
     {
-        //
+        $replies = Comment::findOrFail($id)->replies()->get();
+        return view('admin.comments.replies.show', compact('replies'));
     }
 
     /**
@@ -56,7 +80,6 @@ class CommentRepliesController extends Controller
      */
     public function edit($id)
     {
-        //
     }
 
     /**
@@ -66,9 +89,10 @@ class CommentRepliesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CommentApproveRequest $request, $id)
     {
-        //
+        CommentReply::findOrFail($id)->update($request->all());        
+        return redirect()->back();
     }
 
     /**
@@ -79,6 +103,7 @@ class CommentRepliesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        CommentReply::findOrFail($id)->delete();
+        return redirect()->back();
     }
 }

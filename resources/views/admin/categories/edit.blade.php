@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 @section('content')
 <h1 class="text-center">Edit Categoreis</h1>
     <hr>

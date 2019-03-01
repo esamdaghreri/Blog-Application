@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\CategoryCreateRequest;
 use App\Category;
 
 class AdminCategoriesController extends Controller
@@ -35,11 +36,8 @@ class AdminCategoriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryCreateRequest $request)
     {
-        $request->validate([
-            'category' => 'required'
-        ]);
         $category = new Category();
         $category->name = $request->input('category');
         $category->save();
@@ -76,11 +74,8 @@ class AdminCategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryCreateRequest $request, $id)
     {
-        $request->validate([
-            'category' => 'required'
-        ]);
         $category = Category::findOrFail($id);
         $category->name = $request->input('category');
         $category->save();

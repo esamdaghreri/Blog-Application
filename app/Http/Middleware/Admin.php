@@ -22,6 +22,6 @@ class Admin
             }
         }
 
-        return redirect('/');
+        return redirect('/')->with('error', 'You not active.');
     }
 }

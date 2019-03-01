@@ -87,7 +87,7 @@ class AdminUsersController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $roles = Role::all();
         return view('admin.users.edit', compact('user', 'roles'));
     }
@@ -101,7 +101,7 @@ class AdminUsersController extends Controller
      */
     public function update(UpdateRequest $request, $id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $input = $request->all();
         if($file = $request->file('photo_id')){
             $name = time() . $file->getClientOriginalName();
@@ -130,7 +130,7 @@ class AdminUsersController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         if($user->photo->file != 'default.jpg'){
             unlink(public_path() . '/images/' . $user->photo->file);
             $user->photo->delete();

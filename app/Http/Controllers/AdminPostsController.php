@@ -21,7 +21,7 @@ class AdminPostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::paginate(2);
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -104,10 +104,12 @@ class AdminPostsController extends Controller
     {
         // $user_id = Auth::id();
         // $post = Auth::user()->posts()->whereId($id)->first();
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
         if($file = $request->file('photo_id')){
-            if($post->photo->file != 'default.jpg'){
-                unlink(public_path() . '/images/' . $post->photo->file);
+            if($post->photo->file  != null){
+                if($post->photo->id != 2){
+                    unlink(public_path() . '/images/' . $post->photo->file);
+                }
             }
             $name = time() . $file->getClientOriginalName();
             $file->move('images', $name);
@@ -135,9 +137,11 @@ class AdminPostsController extends Controller
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
-        if($post->photo->file != 'default.jpg'){
-            unlink(public_path() . '/images/' . $post->photo->file);
-            $post->photo->delete();
+        if($post->photo->file  !=  null){
+            if($post->photo->id != 2){
+                unlink(public_path() . '/images/' . $post->photo->file);
+                $post->photo->delete();
+            }
         }
         $post->categories()->detach();
         $post->delete();
@@ -145,8 +149,9 @@ class AdminPostsController extends Controller
     }
 
 
-    public function post($id){
-        $post = Post::findOrFail($id);
-        return view('post', compact('post'));
+    public function post($slug){
+        $post = Post::where('slug', $slug)->firstOrFail();    
+        $comments = $post->comments()->whereIsActive(1)->get();
+        return view('post', compact('post', 'comments'));
     }
 }

@@ -15,5 +15,9 @@ class DefaultPhoto extends Seeder
         $photo = new Photo();
         $photo->file = 'default.jpg';
         $photo->save();
+
+        $photo = new Photo();
+        $photo->file = 'default-post.jpg';
+        $photo->save();
     }
 }

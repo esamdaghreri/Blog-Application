@@ -11,8 +11,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(RoleTable::class);
-        $this->call(DefaultPhoto::class);
-        $this->call(Categories::class);
+        factory(App\User::class, 15)->create();
+
+        // factory(App\User::class, 15)->create()->each(function($user){
+        //     $user->posts()->save(factory(App\Post::class)->make());
+        // });
+
+        // $this->call(RoleTable::class);
+        // $this->call(DefaultPhoto::class);
+        // $this->call(Categories::class);
     }
 }

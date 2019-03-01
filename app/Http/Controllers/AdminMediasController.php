@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Photo;
+use App\Post;
 
 class AdminMediasController extends Controller
 {
@@ -85,8 +86,56 @@ class AdminMediasController extends Controller
     public function destroy($id)
     {
         $photo = Photo::findOrFail($id);
-        unlink(public_path() .'/images/'. $photo->file);
-        $photo->delete();
-        return redirect()->route('media .index');
+        $photo->delete();    
+        unlink(public_path() . '/images/' . $photo->file);
+        $post = Post::findOrFail($photo->post->id);
+        $post->photo_id = 2;
+        $post->save();   
+        return redirect()->back();
+    }
+
+    public function deleteMedia(Request $request){
+        // dd($request);
+        // if(isset($request->delete_single)){
+        //     $this->destroy($request->photo_id);
+        //     return redirect()->back();
+        // }
+
+        if(isset($request->delete_all) && !empty($request->checkBoxArray)){
+            $photos = Photo::findOrFail($request->checkBoxArray);
+            foreach ($photos as $photo) {
+                
+                if($photo->id == $photo->post->photo_id){
+                    // $photo->delete();    
+                    // unlink(public_path() . '/images/' . $photo->file);
+                    // $post = Post::findOrFail($photo->post->id);
+                    // $post->photo_id = 2;
+                    // $post->save(); 
+                    return $photo->post->photo_id;
+                }elseif($photo->id == $photo->user->photo_id){
+                    // $photo->delete();    
+                    // unlink(public_path() . '/images/' . $photo->file);
+                    // $user = User::findOrFail($photo->user->id);
+                    // $user->photo_id = 1;
+                    // $user->save();   
+                    return $photo->user->photo_id;
+                }
+            }
+            return redirect()->back()->with('success', 'Photo has been deleted successfly.');
+        }else{
+            return redirect()->back()->with('error', 'Please select photo to delete.');            
+        }
+
+        // dd($request);
+        // $photos = Photo::findOrFail($request->checkBoxArray);
+        // foreach ($photos as $photo) {
+        //     $photo->delete();    
+        //     unlink(public_path() . '/images/' . $photo->file);
+        //     $post = Post::findOrFail($photo->post->id);
+        //     $post->photo_id = 2;
+        //     $post->save();   
+        // }
+        // return redirect()->back();
+
     }
 }
