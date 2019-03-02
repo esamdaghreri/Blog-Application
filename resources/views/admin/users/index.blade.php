@@ -32,6 +32,9 @@
         @endforeach
     @endif
     </table>
+    <div class="row d-flex justify-content-center">
+        {{ $users->links()}}
+    </div>
     @else
         <h1>There is not users available</h1>
     @endif

@@ -18,7 +18,7 @@ class RoleTable extends Seeder
         $role->name = 'author';
         $role->save();
         $role = new Role();
-        $role->name = 'subsicriber';
+        $role->name = 'subscriber';
         $role->save();
         $role = new Role();
         $role->name = 'public';

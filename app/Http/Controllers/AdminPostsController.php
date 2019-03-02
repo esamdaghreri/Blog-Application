@@ -21,7 +21,7 @@ class AdminPostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate(2);
+        $posts = Post::paginate(10);
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -50,12 +50,12 @@ class AdminPostsController extends Controller
         if($file = $request->file('photo_id')){
             $name = time() . $file->getClientOriginalName();
             $file->move('images', $name);
-            $photo = Photo::create(['file' => $name]);
-            $post->photo_id = $photo->id;          
+            $photo = Photo::create(['file' => $name, 'from' => 'post']);
+            $post->photo_id = $photo->id; 
         }
         else
         {
-            $post->photo_id = 1;
+            $post->photo_id = 2;
         }
 
         // $user->posts()->create($input);
@@ -106,15 +106,14 @@ class AdminPostsController extends Controller
         // $post = Auth::user()->posts()->whereId($id)->first();
         $post = Post::findOrFail($id);
         if($file = $request->file('photo_id')){
-            if($post->photo->file  != null){
-                if($post->photo->id != 2){
-                    unlink(public_path() . '/images/' . $post->photo->file);
-                }
+            if($post->photo->file != 'default-post.jpg'){
+                unlink(public_path() . '/images/' . $post->photo->file);
+                $post->photo->delete();
             }
             $name = time() . $file->getClientOriginalName();
             $file->move('images', $name);
-            $photo = Photo::create(['file' => $name]);
-            $post->photo_id = $photo->id;   
+            $photo = Photo::create(['file' => $name, 'from' => 'post']);
+            $post->photo_id = $photo->id; 
             
         }
 
@@ -138,7 +137,7 @@ class AdminPostsController extends Controller
     {
         $post = Post::findOrFail($id);
         if($post->photo->file  !=  null){
-            if($post->photo->id != 2){
+            if($post->photo->file != 'default-post.jpg'){
                 unlink(public_path() . '/images/' . $post->photo->file);
                 $post->photo->delete();
             }

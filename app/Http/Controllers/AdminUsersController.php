@@ -19,7 +19,7 @@ class AdminUsersController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::orderBy('created_at', 'dsc')->paginate(10);
         return view('admin.users.index', compact('users'));
     }
 
@@ -51,7 +51,7 @@ class AdminUsersController extends Controller
         if($file = $request->file('photo_id')){
             $name = time() . $file->getClientOriginalName();
             $file->move('images', $name);
-            $photo = Photo::create(['file' => $name]);
+            $photo = Photo::create(['file' => $name, 'from' => 'user']);
             // $input['photo_id'] = $photo->id;
             $user->photo_id = $photo->id;
         }else{
@@ -104,9 +104,13 @@ class AdminUsersController extends Controller
         $user = User::findOrFail($id);
         $input = $request->all();
         if($file = $request->file('photo_id')){
+            if($user->photo->file != 'default.jpg'){
+                unlink(public_path() . '/images/' . $user->photo->file);
+                $user->photo->delete();
+            }
             $name = time() . $file->getClientOriginalName();
             $file->move('images', $name);
-            $photo = Photo::create(['file' => $name]);
+            $photo = Photo::create(['file' => $name, 'from' => 'user']);
             // $input['photo_id'] = $photo->id;
             $user->photo_id = $photo->id;
         }

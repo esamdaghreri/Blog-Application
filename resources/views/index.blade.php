@@ -43,8 +43,8 @@
                 </div>
                 </div>
             @endforeach
-            <div class="clearfix">
-                <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+            <div class="row d-flex justify-content-center">
+                {{ $posts->links()}}
             </div>
         @endif
     </div>
