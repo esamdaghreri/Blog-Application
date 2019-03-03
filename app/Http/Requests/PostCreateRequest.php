@@ -27,7 +27,7 @@ class PostCreateRequest extends FormRequest
             'title'         => 'required',
             'body'          => 'required',
             'category'   => 'required',
-            // 'photo_id'      => 'required'
+            'photo_id'      => 'max:500000'
         ];
     }
 }

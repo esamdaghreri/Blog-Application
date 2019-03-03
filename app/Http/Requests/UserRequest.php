@@ -29,6 +29,8 @@ class UserRequest extends FormRequest
             'role_id' => 'required',
             'is_active' => 'required',
             'password' => 'required|min:6',
+            'file'      => 'max:500000'
+
         ];
     }
 }

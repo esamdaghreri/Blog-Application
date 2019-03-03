@@ -27,7 +27,8 @@ class UpdateRequest extends FormRequest
             'name' => 'required',
             'email' => 'required',
             'role_id' => 'required',
-            'is_active' => 'required'
+            'is_active' => 'required',
+            'photo_id'      => 'max:500000'
         ];
     }
 }
