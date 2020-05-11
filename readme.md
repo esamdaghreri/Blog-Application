@@ -7,7 +7,7 @@ Esam's blog is a simple web application that can an admin to create a post and r
 - Clone the repository `git clone https://github.com/esamdaghreri/Blog-Application.git`.
 - Make a copy of `.env.example` as `.env`
 - Run the following the project folder `docker-compose up`
-- After that run the following commands
+- then run the following commands
 ```
 $ docker exec -it blog-application_php_1 sh
 $ php artisan migrate --seed
