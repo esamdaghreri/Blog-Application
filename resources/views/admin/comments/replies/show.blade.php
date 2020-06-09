@@ -21,7 +21,7 @@
                     <td>{{$reply->author}}</td>
                     <td>{{$reply->email}}</td>
                     <td>{{$reply->body}}</td>
-                    <td>{{$reply->created_at->diffForHumans()}}</td>
+                    <td>{{$reply->created_at? $reply->created_at->diffForHumans() : '-'}}</td>
                     <td><a href="{{route('home.post', $reply->comment->post->slug)}}">View Post</a></td>
                     <td>
                         @if($reply->is_active == 1)

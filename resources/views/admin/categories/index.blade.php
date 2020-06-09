@@ -30,8 +30,8 @@
                             <tr>
                                 <td>{{$category->id}}</td>
                                 <th scope="row"><a href="{{route('categories.edit', $category->id)}}">{{$category->name}}</a></th>
-                                <td>{{$category->created_at->diffForHumans()}}</td>
-                                <td>{{$category->updated_at->diffForHumans()}}</td>
+                                <td>{{$category->created_at? $category->created_at->diffForHumans() : '-'}}</td>
+                                <td>{{$category->updated_at? $category->updated_at->diffForHumans() : '-'}}</td>
                             </tr>
                         </tbody>
                     @endforeach

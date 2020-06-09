@@ -35,7 +35,7 @@
                     </a>
                     <p class="post-meta">Posted by
                         <a href="#">{{$post->user->name}}</a>
-                            {{$post->created_at->diffForHumans()}}</p>
+                            {{$post->created_at? $post->created_at->diffForHumans() : '-'}}</p>
                     </div>
                     <hr> 
                     <!-- Pager -->

@@ -29,7 +29,7 @@
                                     <th><input type="checkbox" name="checkBoxArray[]" value="{{$photo->id}}" class="checkboxes"></th>
                                     <th scope="row"><a href="{{route('media.edit', $photo->id)}}">{{$photo->id}}</a></th>
                                     <td><img height="50" src="/images/{{$photo->file}}"></td>
-                                    <td>{{$photo->created_at->diffForHumans()}}</td>
+                                    <td>{{$photo->created_at? $photo->created_at->diffForHumans() : '-'}}</td>
                                     {{-- <td>{{$photo->email->diffForHumans()}}</td> --}}
                                     <td>
                                         <input  type="hidden" value="{{$photo->id}}" name="photo_id">

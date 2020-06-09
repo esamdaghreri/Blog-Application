@@ -12,7 +12,7 @@
   <hr>
 
   <!-- Date/Time -->
-  <p>Posted  {{$post->created_at->diffForHumans()}}</p>
+  <p>Posted  {{$post->created_at? $post->created_at->diffForHumans() : '-'}}</p>
 
   <hr>
 
@@ -48,7 +48,7 @@
         <img height="50" width="50" class="d-flex mr-3 rounded-circle" src="/images/{{$comment->photo}}" alt="">
         <div class="media-body">
           <h5 class="mt-0">{{$comment->author}} 
-            <small>{{$comment->created_at->diffForHumans()}}</small>
+            <small>{{$comment->created_at? $comment->created_at->diffForHumans() : '-'}}</small>
           </h5>
           {!! $comment->body !!}
           <div class="card-body">
@@ -67,7 +67,7 @@
                 <div class="media mt-4">
                   <img width="50" height="50" class="d-flex mr-3 rounded-circle" src="/images/{{$reply->photo}}" alt="">
                   <div class="media-body">
-                    <h5 class="mt-0">{{$reply->author}}  <small>{{$reply->created_at->diffForHumans()}}</small></h5>
+                    <h5 class="mt-0">{{$reply->author}}  <small>{{$reply->created_at? $reply->created_at->diffForHumans() : '-'}}</small></h5>
                       {{$reply->body}}
                       <div class="comment-reply-container">
                         <button class="toggle-reply btn btn-primary float-right">Reply</button>

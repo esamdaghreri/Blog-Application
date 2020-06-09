@@ -38,8 +38,8 @@
                     <td>{!! str_limit($post->body, 12)!!}</td>
                     <td><a href="{{route('home.post', $post->slug)}}">View post</a></td>
                     <td><a href="{{route('comments.show', $post->id)}}">Comments</a></td>
-                    <td>{{$post->created_at->diffForHumans()}}</td>
-                    <td>{{$post->updated_at->diffForHumans()}}</td>
+                    <td>{{$post->created_at? $post->created_at->diffForHumans() : '-'}}</td>
+                    <td>{{$post->updated_at? $post->updated_at->diffForHumans() : '-'}}</td>
                 </tr>
             </tbody>
         @endforeach

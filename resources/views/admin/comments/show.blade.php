@@ -22,7 +22,7 @@
                     <td>{{$comment->author}}</td>
                     <td>{{$comment->email}}</td>
                     <td>{{$comment->body}}</td>
-                    <td>{{$comment->created_at->diffForHumans()}}</td>
+                    <td>{{$comment->created_at? $comment->created_at->diffForHumans() : '-'}}</td>
                     <td><a href="{{route('home.post', $comment->post->slug)}}">View Post</a></td>
                     <td><a href="{{route('reply.show', $comment->id)}}">View Replies</a></td>
                     <td>
