@@ -15,13 +15,13 @@ Route::get('/', 'PostController@index')->name('index');
 
 
 Auth::routes();
-Auth::routes(['verify' => true]);
+Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/post/{id}', 'AdminPostsController@post')->name('home.post');
 // Route::delete('/delete/media', 'AdminMediasController@deleteMedia')->name('deleteMedia');
 
-Route::group(['middleware' => ['admin', 'verified']], function() {
+Route::group(['middleware' => ['admin']], function() {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('admin/users', 'AdminUsersController');
     Route::resource('admin/posts', 'AdminPostsController');
@@ -32,7 +32,7 @@ Route::group(['middleware' => ['admin', 'verified']], function() {
     Route::delete('/delete/media', 'AdminMediasController@deleteMedia')->name('deleteMedia');
 });
 
-Route::group(['middleware' => ['auth', 'verified']], function() {
+Route::group(['middleware' => ['auth']], function() {
     Route::resource('comment/reply', 'CommentRepliesController');
     Route::post('/comment/reply', 'CommentRepliesController@createReply')->name('create.reply');
 
