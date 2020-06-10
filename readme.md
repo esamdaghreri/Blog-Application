@@ -4,7 +4,7 @@ Esam's blog is a simple web application that can admin to create a post, and reg
 
 ## Getting Started
 
-- Clone the repository `git clone https://github.com/esamdaghreri/scholarship.git`.
+- Clone the repository `git clone https://github.com/esamdaghreri/Blog-Application`.
 - Make a copy of `.env.example` as `.env`
 - Run the following the project folder `docker-compose up`
 - then run the following commands
